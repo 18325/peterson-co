@@ -60,10 +60,7 @@ export default function TrustSection() {
 
       {/* En-tête */}
       <div className="text-center mb-16">
-        <p
-          className="text-sm font-bold uppercase tracking-widest mb-3"
-          style={{ color: 'var(--cyan)' }}
-        >
+        <p style={{ fontSize: '17px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.10em', color: 'var(--cyan)', marginBottom: '12px' }}>
           04 · Pourquoi nous choisir
         </p>
         <h2

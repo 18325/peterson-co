@@ -1,0 +1,108 @@
+/* ──────────────────────────────────────────
+   Boutons & badges
+   ────────────────────────────────────────── */
+
+/* ── Primary ── */
+.btn-primary {
+  background: rgba(34, 119, 196, 0.18);
+  color: #FFFFFF;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(34, 119, 196, 0.40);
+  box-shadow: 0 4px 20px rgba(34, 119, 196, 0.18);
+}
+
+.btn-primary:hover {
+  background: rgba(34, 119, 196, 0.32);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(34, 119, 196, 0.28);
+}
+
+/* ── Ghost ── */
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  font-weight: 500;
+  padding: 11px 27px;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: background 0.25s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.10); transform: translateY(-1px); }
+
+/* ── WhatsApp ── */
+.btn-whatsapp {
+  background: rgba(37, 211, 102, 0.15);
+  color: #25D366;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(37, 211, 102, 0.30);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.12);
+}
+
+.btn-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.26);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.22);
+}
+
+/* ── Light mode overrides ── */
+[data-theme="light"] .btn-primary {
+  background: var(--cyan);
+  color: #FFFFFF;
+  border-color: var(--cyan);
+  box-shadow: 0 4px 16px rgba(34,119,196,0.25);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  background: #1A69B8;
+  box-shadow: 0 8px 24px rgba(34,119,196,0.35);
+}
+
+[data-theme="light"] .btn-ghost {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border-color: var(--border-strong);
+  box-shadow: var(--neu-shadow);
+}
+
+[data-theme="light"] .btn-ghost:hover { box-shadow: var(--neu-shadow-hover); }
+
+[data-theme="light"] .btn-whatsapp {
+  background: rgba(37, 211, 102, 0.10);
+  color: #1A8C1E;
+  border-color: rgba(37, 211, 102, 0.30);
+}
+
+/* ── Badge ── */
+.badge-cyan {
+  background: rgba(34, 119, 196, 0.12);
+  border: 1px solid rgba(34, 119, 196, 0.30);
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  letter-spacing: 0.03em;
+}

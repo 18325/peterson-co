@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 // n'importe quoi dans metadata (ex: un chiffre à la place d'une string)
 import './globals.css'
 import SplashScreen from '@/components/SplashScreen'
+import CartDrawer from '@/components/CartDrawer'
+import { CartProvider } from '@/context/CartContext'
 
 export const metadata: Metadata = {
   title: 'Peterson&Co — Abonnements Premium',
@@ -21,13 +23,16 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body>
         <SplashScreen />
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="dark"
-          enableSystem={false}
-        >
-          {children}
-        </ThemeProvider>
+        <CartProvider>
+          <ThemeProvider
+            attribute="data-theme"
+            defaultTheme="dark"
+            enableSystem={false}
+          >
+            {children}
+            <CartDrawer />
+          </ThemeProvider>
+        </CartProvider>
       </body>
     </html>
   )

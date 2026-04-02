@@ -8,18 +8,20 @@ import type { Service, ServiceVariant, ServicePrice } from '@/types'
 import { formatPrice, categoryToSlug } from '@/lib/format'
 import { WHATSAPP_NUMBER } from '@/constants/config'
 import { SERVICES } from '@/constants/services'
+import { useCart } from '@/context/CartContext'
 
-type PaymentMethodId = 'wave' | 'orange_money' | 'mtn_momo' | 'visa'
+type PaymentMethodId = 'wave' | 'mobilemoney' | 'moovmoney' | 'visa' | 'mastercard'
 
 const PAYMENT_METHODS: Array<{
   id: PaymentMethodId
   label: string
-  hint: string
+  image: string
 }> = [
-  { id: 'wave', label: 'Wave', hint: 'Mobile money' },
-  { id: 'orange_money', label: 'Orange Money', hint: 'Paiement mobile' },
-  { id: 'mtn_momo', label: 'MTN MoMo', hint: 'Paiement mobile' },
-  { id: 'visa', label: 'Visa', hint: 'Carte bancaire' },
+  { id: 'wave',        label: 'Wave',        image: '/assets/images/wave.jpg'        },
+  { id: 'mobilemoney', label: 'Mobile Money', image: '/assets/images/mobilemoney.jpg' },
+  { id: 'moovmoney',   label: 'Moov Money',   image: '/assets/images/moovmoney.png'   },
+  { id: 'visa',        label: 'Visa',         image: '/assets/images/visa.jpg'        },
+  { id: 'mastercard',  label: 'Mastercard',   image: '/assets/images/mastercard.jpg'  },
 ]
 
 /* ── WhatsApp URL ── */
@@ -119,20 +121,19 @@ function RelatedCard({ service }: { service: Service }) {
 export default function ProductDetail({ service }: { service: Service }) {
   const [selectedVariant, setSelectedVariant] = useState<ServiceVariant>(service.variants[0])
   const [selectedPrice, setSelectedPrice] = useState<ServicePrice>(
-    () => service.variants[0].prices.find((p) => p.popular) ?? service.variants[0].prices[0]
+    () => service.variants[0].prices[0]
   )
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodId>('wave')
-  const [addedToCart, setAddedToCart] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodId>('mobilemoney')
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const { addItem } = useCart()
   const [variantFeedbackId, setVariantFeedbackId] = useState(service.variants[0].id)
-  const [durationFeedback, setDurationFeedback] = useState(service.variants[0].prices.find((p) => p.popular)?.duration ?? service.variants[0].prices[0].duration)
+  const [durationFeedback, setDurationFeedback] = useState(service.variants[0].prices[0].duration)
 
   const handleVariantChange = (variant: ServiceVariant) => {
     setSelectedVariant(variant)
-    setSelectedPrice(variant.prices.find((p) => p.popular) ?? variant.prices[0])
-    setAddedToCart(false)
+    setSelectedPrice(variant.prices[0])
     setVariantFeedbackId(variant.id)
-    setDurationFeedback(variant.prices.find((p) => p.popular)?.duration ?? variant.prices[0].duration)
+    setDurationFeedback(variant.prices[0].duration)
     window.setTimeout(() => setVariantFeedbackId(''), 700)
     window.setTimeout(() => setDurationFeedback(''), 700)
   }
@@ -177,16 +178,39 @@ export default function ProductDetail({ service }: { service: Service }) {
         <div className="pd-trust-bar">
           <div className="pd-trust-bar__inner">
             {[
-              { icon: '⚡', title: 'Livraison instantanée', sub: 'en moins de 30 min' },
-              { icon: '🔒', title: 'Paiement sécurisé', sub: 'Wave · OM · MTN · Visa' },
-              { icon: '✅', title: 'Accès immédiat', sub: 'sur votre WhatsApp' },
-            ].map(({ icon, title, sub }) => (
+              {
+                title: 'Livraison instantanée',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                  </svg>
+                ),
+                color: '#F97316',
+              },
+              {
+                title: 'Paiement sécurisé',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <polyline points="9 12 11 14 15 10"/>
+                  </svg>
+                ),
+                color: '#2277C4',
+              },
+              {
+                title: 'Accès immédiat',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="9 12 11 14 15 10"/>
+                  </svg>
+                ),
+                color: '#229422',
+              },
+            ].map(({ title, icon, color }) => (
               <div key={title} className="pd-trust-bar__item">
-                <span className="pd-trust-bar__icon">{icon}</span>
-                <div>
-                  <p className="pd-trust-bar__title">{title}</p>
-                  <p className="pd-trust-bar__sub">{sub}</p>
-                </div>
+                <span className="pd-trust-bar__icon" style={{ color }}>{icon}</span>
+                <p className="pd-trust-bar__title">{title}</p>
               </div>
             ))}
           </div>
@@ -306,12 +330,13 @@ export default function ProductDetail({ service }: { service: Service }) {
                 >
                   {selectedVariant.prices.map((price) => (
                     <option key={price.duration} value={price.duration}>
-                      {price.duration} - {formatPrice(price.amount)} {price.currency}
-                      {price.popular ? ' - Populaire' : ''}
+                      {price.duration}, {selectedVariant.label} — {formatPrice(price.amount)} {price.currency}{price.popular ? ' ★' : ''}
                     </option>
                   ))}
                 </select>
-                <span className="pd-select-icon" aria-hidden="true">v</span>
+                <svg className="pd-select-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
               <p className="pd-selection-note">
                 Duree choisie : <strong>{selectedPrice.duration}</strong>
@@ -346,7 +371,6 @@ export default function ProductDetail({ service }: { service: Service }) {
                     <p className="pd-payments__title">Paiement 100 % sécurisé</p>
                     <p className="pd-payments__label">Choisissez la méthode à transmettre ensuite au backend.</p>
                   </div>
-                  <span className="pd-payments__lock">🔒</span>
                 </div>
                 <div className="pd-payments__methods">
                   {PAYMENT_METHODS.map((method) => (
@@ -359,8 +383,8 @@ export default function ProductDetail({ service }: { service: Service }) {
                       aria-pressed={selectedPaymentMethod === method.id}
                       onClick={() => setSelectedPaymentMethod(method.id)}
                     >
+                      <Image src={method.image} alt={method.label} width={48} height={28} className="pd-payment-option__img" />
                       <span className="pd-payment-option__label">{method.label}</span>
-                      <span className="pd-payment-option__hint">{method.hint}</span>
                     </button>
                   ))}
                 </div>
@@ -372,9 +396,17 @@ export default function ProductDetail({ service }: { service: Service }) {
               <button
                 type="button"
                 className="pd-cta-secondary"
-                onClick={() => setAddedToCart(true)}
+                onClick={() => addItem({
+                  serviceId: service.id,
+                  serviceName: service.name,
+                  serviceImage: service.image,
+                  variantLabel: selectedVariant.label,
+                  duration: selectedPrice.duration,
+                  amount: selectedPrice.amount,
+                  currency: selectedPrice.currency,
+                })}
               >
-                {addedToCart ? 'Ajoute au panier' : 'Ajouter au panier'}
+                Ajouter au panier
               </button>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="pd-cta-main pd-cta-main--accent">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -384,10 +416,6 @@ export default function ProductDetail({ service }: { service: Service }) {
               </a>
             </div>
 
-            <div className="pd-order-note">
-              {addedToCart ? 'Produit ajoute a la selection. ' : ''}
-              Methode selectionnee : <strong>{selectedPayment.label}</strong> (`{selectedPayment.id}`)
-            </div>
           </div>
 
         </div>

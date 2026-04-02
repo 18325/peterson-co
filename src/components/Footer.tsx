@@ -24,7 +24,12 @@ const LINKS = {
   ],
 }
 
-const PAYMENT_METHODS = ['Wave', 'Orange Money', 'MTN MoMo', 'Visa']
+const PAYMENT_METHODS = [
+  { label: 'Mobile Money',  image: '/assets/images/mobilemoney.jpg' },
+  { label: 'Orange Money',  image: '/assets/images/orange_money.jpg' },
+  { label: 'Wave',          image: '/assets/images/wave.jpg'         },
+  { label: 'Visa',          image: '/assets/images/visa.jpg'         },
+]
 
 export default function Footer() {
   const waText = encodeURIComponent('Bonjour ! Je souhaite commander un abonnement Peterson&Co.')
@@ -92,7 +97,9 @@ export default function Footer() {
           </p>
           <div className="footer__payments">
             {PAYMENT_METHODS.map((m) => (
-              <span key={m} className="footer__pay-badge">{m}</span>
+              <div key={m.label} className="footer__pay-badge">
+                <Image src={m.image} alt={m.label} width={52} height={30} className="object-contain" />
+              </div>
             ))}
           </div>
         </div>

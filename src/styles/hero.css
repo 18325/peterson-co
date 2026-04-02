@@ -1,0 +1,124 @@
+/* ──────────────────────────────────────────
+   Hero — mesh, carousel 3D, titre animé
+   ────────────────────────────────────────── */
+
+/* ── Fond mesh ── */
+.hero-mesh {
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* ── Carousel 3D logos ── */
+@keyframes autoRun3d {
+  from { transform: perspective(1000px) rotateY(-360deg); }
+  to   { transform: perspective(1000px) rotateY(0deg); }
+}
+
+@keyframes animateBrightness {
+  10% { filter: brightness(1);    }
+  50% { filter: brightness(0.30); }
+  90% { filter: brightness(1);    }
+}
+
+.carousel-3d {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  animation: autoRun3d 28s linear infinite;
+  will-change: transform;
+}
+
+.carousel-3d:hover { animation-play-state: paused !important; }
+.carousel-3d:hover .carousel-3d__item { animation-play-state: paused !important; }
+
+.carousel-3d__item {
+  position: absolute;
+  width: 168px; height: 168px;
+  border-radius: 24px;
+  overflow: hidden;
+  top: 50%; left: 50%;
+  transform-origin: center center;
+  animation: animateBrightness 28s linear infinite;
+  will-change: transform, filter;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-card);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.34);
+}
+
+/* 12 items · 30° d'écart · rayon 320px */
+.carousel-3d__item:nth-child(1)  { transform: translate(-50%,-50%) rotateY(0deg)   translateZ(320px); animation-delay:    0s; }
+.carousel-3d__item:nth-child(2)  { transform: translate(-50%,-50%) rotateY(30deg)  translateZ(320px); animation-delay: -2.33s; }
+.carousel-3d__item:nth-child(3)  { transform: translate(-50%,-50%) rotateY(60deg)  translateZ(320px); animation-delay: -4.67s; }
+.carousel-3d__item:nth-child(4)  { transform: translate(-50%,-50%) rotateY(90deg)  translateZ(320px); animation-delay: -7s; }
+.carousel-3d__item:nth-child(5)  { transform: translate(-50%,-50%) rotateY(120deg) translateZ(320px); animation-delay: -9.33s; }
+.carousel-3d__item:nth-child(6)  { transform: translate(-50%,-50%) rotateY(150deg) translateZ(320px); animation-delay: -11.67s; }
+.carousel-3d__item:nth-child(7)  { transform: translate(-50%,-50%) rotateY(180deg) translateZ(320px); animation-delay: -14s; }
+.carousel-3d__item:nth-child(8)  { transform: translate(-50%,-50%) rotateY(210deg) translateZ(320px); animation-delay: -16.33s; }
+.carousel-3d__item:nth-child(9)  { transform: translate(-50%,-50%) rotateY(240deg) translateZ(320px); animation-delay: -18.67s; }
+.carousel-3d__item:nth-child(10) { transform: translate(-50%,-50%) rotateY(270deg) translateZ(320px); animation-delay: -21s; }
+.carousel-3d__item:nth-child(11) { transform: translate(-50%,-50%) rotateY(300deg) translateZ(320px); animation-delay: -23.33s; }
+.carousel-3d__item:nth-child(12) { transform: translate(-50%,-50%) rotateY(330deg) translateZ(320px); animation-delay: -25.67s; }
+
+@media (max-width: 720px) {
+  .carousel-3d { height: 236px; }
+  .carousel-3d__item { width: 138px; height: 138px; }
+
+  .carousel-3d__item:nth-child(1)  { transform: translate(-50%,-50%) rotateY(0deg)   translateZ(250px); }
+  .carousel-3d__item:nth-child(2)  { transform: translate(-50%,-50%) rotateY(30deg)  translateZ(250px); }
+  .carousel-3d__item:nth-child(3)  { transform: translate(-50%,-50%) rotateY(60deg)  translateZ(250px); }
+  .carousel-3d__item:nth-child(4)  { transform: translate(-50%,-50%) rotateY(90deg)  translateZ(250px); }
+  .carousel-3d__item:nth-child(5)  { transform: translate(-50%,-50%) rotateY(120deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(6)  { transform: translate(-50%,-50%) rotateY(150deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(7)  { transform: translate(-50%,-50%) rotateY(180deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(8)  { transform: translate(-50%,-50%) rotateY(210deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(9)  { transform: translate(-50%,-50%) rotateY(240deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(10) { transform: translate(-50%,-50%) rotateY(270deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(11) { transform: translate(-50%,-50%) rotateY(300deg) translateZ(250px); }
+  .carousel-3d__item:nth-child(12) { transform: translate(-50%,-50%) rotateY(330deg) translateZ(250px); }
+}
+
+/* ── Titre hero animé (grille + halo) ── */
+@keyframes heroGridScroll {
+  from { background-position: 0 0; }
+  to   { background-position: 40px 40px; }
+}
+
+.hero-tilt-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Grille diagonale derrière le titre */
+.hero-tilt-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background:
+    linear-gradient(rgba(34, 119, 196, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 119, 196, 0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: heroGridScroll 3s linear infinite;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, white 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, white 30%, transparent 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Halo radial permanent */
+.hero-tilt-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(34, 119, 196, 0.20), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-tilt-inner {
+  position: relative;
+  z-index: 1;
+}

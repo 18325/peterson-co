@@ -1,0 +1,77 @@
+/* ──────────────────────────────────────────
+   Base — reset, typographie, carte, utilitaires
+   ────────────────────────────────────────── */
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Manrope', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* ── Typographie ── */
+.font-title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.font-logo {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.text-gradient {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Carte générique ── */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px var(--card-glow);
+}
+
+[data-theme="light"] .card {
+  border: none;
+  box-shadow: var(--neu-shadow);
+}
+
+[data-theme="light"] .card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--neu-shadow-hover);
+}
+
+.services-cat-block {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+[data-theme="light"] .services-cat-block {
+  background-color: #FFFFFF;
+  border: none;
+  box-shadow: var(--neu-shadow);
+}
+
+/* ── Utilitaires couleur ── */
+.text-cyan  { color: var(--cyan);       }
+.text-gold  { color: var(--gold);       }
+.text-ok    { color: var(--success);    }
+.text-muted { color: var(--text-muted); }

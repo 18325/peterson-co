@@ -35,7 +35,7 @@ export default function ServiceCard({ service }: { service: Service }) {
             </div>
           ) : service.image ? (
             <Image src={service.image} alt={service.name} fill
-              className="object-contain p-6 transition-transform duration-500 group-hover:scale-110" />
+              className="object-contain transition-transform duration-500 group-hover:scale-105" />
           ) : (
             <span className="text-5xl">{service.emoji}</span>
           )}

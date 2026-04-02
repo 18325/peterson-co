@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { SERVICES, CATEGORIES } from '@/constants/services'
 import { categoryToSlug } from '@/lib/format'
@@ -55,6 +55,41 @@ export default function ServicesGrid() {
   const [active, setActive]   = useState('Tous')
   const [query,  setQuery]    = useState('')
 
+  /* Auto-scroll des filtres */
+  const filterRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = filterRef.current
+    if (!el) return
+    let frame: number
+    let paused = false
+
+    const tick = () => {
+      if (!paused) {
+        el.scrollLeft += 0.6
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth) el.scrollLeft = 0
+      }
+      frame = requestAnimationFrame(tick)
+    }
+
+    frame = requestAnimationFrame(tick)
+
+    const pause  = () => { paused = true }
+    const resume = () => { paused = false }
+
+    el.addEventListener('mouseenter', pause)
+    el.addEventListener('mouseleave', resume)
+    el.addEventListener('touchstart', pause,  { passive: true })
+    el.addEventListener('touchend',   resume)
+
+    return () => {
+      cancelAnimationFrame(frame)
+      el.removeEventListener('mouseenter', pause)
+      el.removeEventListener('mouseleave', resume)
+      el.removeEventListener('touchstart', pause)
+      el.removeEventListener('touchend',   resume)
+    }
+  }, [])
+
   const trimmed = query.trim().toLowerCase()
   const isSearching = trimmed.length > 0
 
@@ -108,7 +143,7 @@ export default function ServicesGrid() {
 
       {/* ── Filtres catégories (masqués en mode search) ── */}
       {!isSearching && (
-        <div className="sgrid__filters-marquee">
+        <div className="sgrid__filters-marquee" ref={filterRef}>
           <div className="sgrid__filters-track">
             {CATEGORIES.map((cat: string, index: number) => (
               <button

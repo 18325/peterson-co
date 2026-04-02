@@ -1,0 +1,44 @@
+/* ──────────────────────────────────────────
+   Design tokens — Peterson&Co
+   Fond sombre neutre · Bleu #2277C4 · Vert #229422
+   ────────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg-deep:       #0C0C0C;
+  --bg-card:       #141414;
+  --bg-elevated:   #1C1C1C;
+
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text-main:     #FFFFFF;
+  --text-muted:    #C0C0C0;
+
+  --cyan:          #2A8CE8;
+  --gold:          #27C42B;
+  --success:       #27C42B;
+  --whatsapp:      #25D366;
+
+  --grad-primary:  linear-gradient(135deg, #2277C4 0%, #229422 100%);
+  --card-glow:     rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] {
+  --bg-deep:        #F7F7F7;
+  --bg-card:        #FFFFFF;
+  --bg-elevated:    #F0F0F0;
+  --border:         rgba(0, 0, 0, 0.08);
+  --border-strong:  rgba(0, 0, 0, 0.14);
+  --text-main:      #111111;
+  --text-muted:     #2A2A2A;
+  --cyan:           #2277C4;
+  --gold:           #1C8C20;
+  --success:        #1C8C20;
+  --whatsapp:       #25D366;
+  --grad-primary:   linear-gradient(135deg, #2277C4 0%, #229422 100%);
+  --card-glow:      transparent;
+
+  --neu-shadow:       0 2px 10px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+  --neu-shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07);
+  --neu-inset:        inset 0 1px 3px rgba(0,0,0,0.06);
+}

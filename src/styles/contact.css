@@ -1,0 +1,22 @@
+/* ──────────────────────────────────────────
+   Section Contact
+   ────────────────────────────────────────── */
+
+/* Désactive l'effet hover des cards dans le contact */
+.contact-section .card         { transition: none; }
+.contact-section .card:hover   { transform: none; border-color: var(--border); box-shadow: none; }
+[data-theme="light"] .contact-section .card:hover { box-shadow: var(--neu-shadow); }
+
+.contact-input {
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-input:hover {
+  border-color: var(--border-strong) !important;
+  background-color: color-mix(in srgb, var(--bg-elevated) 35%, transparent) !important;
+}
+
+.contact-input:focus {
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 0 3px rgba(34,119,196,0.10);
+}
