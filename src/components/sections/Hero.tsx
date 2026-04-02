@@ -10,13 +10,11 @@ export default function Hero() {
       style={{ minHeight: '100vh', paddingTop: '80px' }}
     >
       {/* Titre */}
-      <div className="hero-tilt-wrapper" style={{ marginBottom: '28px' }}>
+      <div className="hero-tilt-wrapper" style={{ marginBottom: '20px' }}>
         <h1
           className="hero-tilt-inner font-title"
-          style={{ fontSize: 'clamp(52px,9vw,110px)', lineHeight: '1.0', letterSpacing: '-0.03em' }}
+          style={{ fontSize: 'clamp(40px,8vw,96px)', lineHeight: '1.05', letterSpacing: '-0.03em' }}
         >
-          <span style={{ color: 'var(--text-main)' }}>Vos abonnements</span>
-          <br />
           <span
             style={{
               background: 'linear-gradient(135deg, #2277C4 0%, #229422 100%)',
@@ -25,32 +23,21 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            Premium
+            +100 services premium
           </span>
           <br />
-          <span style={{ color: 'var(--text-main)' }}>à petit prix</span>
+          <span style={{ color: 'var(--text-main)' }}>disponibles</span>
         </h1>
       </div>
 
       {/* Sous-titre */}
       <p
         className="relative font-light max-w-xl"
-        style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '44px' }}
+        style={{ fontSize: '18px', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '36px' }}
       >
-        Netflix, Spotify, Disney+, VPN et bien plus. Paiement via{' '}
-        <span style={{ color: 'var(--text-main)', fontWeight: 500 }}>Wave, Orange Money, PayPal</span>
-        {' '}ou carte bancaire. Reçois tes identifiants directement sur WhatsApp.
+        Abonnements, cartes cadeaux et jeux au meilleur prix.
       </p>
 
-      {/* CTAs */}
-      <div className="relative flex flex-wrap gap-4 justify-center mb-14">
-        <a href="#services" className="btn-primary text-base px-8 py-3">
-          Voir les services →
-        </a>
-        <a href="#comment" className="btn-ghost text-sm px-8 py-3">
-          Comment ça marche ?
-        </a>
-      </div>
 
       {/* ── Carousel 3D ── */}
       <div className="relative w-full" style={{ height: '260px' }}>

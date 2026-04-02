@@ -7,7 +7,6 @@ import { categoryToSlug } from '@/lib/format'
 import ServiceCard from './ServicesCard'
 
 const CONTENT_CATS = CATEGORIES.filter((c) => c !== 'Tous') as string[]
-const MARQUEE_CATEGORIES = [...CATEGORIES, ...CATEGORIES]
 
 /* ── Rangée par catégorie ── */
 function CategoryRow({ cat, services }: { cat: string; services: typeof SERVICES }) {
@@ -111,7 +110,7 @@ export default function ServicesGrid() {
       {!isSearching && (
         <div className="sgrid__filters-marquee">
           <div className="sgrid__filters-track">
-            {MARQUEE_CATEGORIES.map((cat, index) => (
+            {CATEGORIES.map((cat: string, index: number) => (
               <button
                 key={`${cat}-${index}`}
                 onClick={() => setActive(cat)}

@@ -135,6 +135,94 @@ export const SERVICES: Service[] = [
     ],
   },
 
+  {
+    id: 'paramount',
+    name: 'Paramount+',
+    category: 'Streaming Vidéo',
+    emoji: '🎬',
+    image: '/assets/images/paramount.jpg',
+    tagline: 'Films & séries exclusifs Paramount — VPN inclus',
+    variants: [
+      {
+        id: 'paramount-profil',
+        label: 'Profil Partagé',
+        description: 'Accès à un profil sur un compte Paramount+ partagé. Large catalogue de films, séries et contenus exclusifs. Utilisable sur téléphone, tablette, TV ou ordinateur. VPN inclus dans le tarif.',
+        features: ['Contenus exclusifs Paramount', 'Films & séries premium', 'VPN inclus', 'Profil personnel'],
+        prices: [
+          { duration: '1 mois', amount: 5000,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 8500,  currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 12500, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'starz',
+    name: 'Starz',
+    category: 'Streaming Vidéo',
+    emoji: '⭐',
+    image: '/assets/images/starz.jpg',
+    tagline: 'Films & séries premium Starz — VPN inclus',
+    variants: [
+      {
+        id: 'starz-profil',
+        label: 'Profil Partagé',
+        description: 'Accès à un profil sur un compte Starz partagé. Large catalogue de films et séries premium. Utilisable sur téléphone, tablette, TV ou ordinateur. VPN inclus dans le tarif.',
+        features: ['Catalogue films & séries', 'Contenus exclusifs Starz', 'VPN inclus', 'Profil personnel'],
+        prices: [
+          { duration: '1 mois', amount: 5000,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 8500,  currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 12500, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'youtube-premium',
+    name: 'YouTube Premium',
+    category: 'Streaming Vidéo',
+    emoji: '▶️',
+    image: '/assets/images/youtubepremium.jpg',
+    tagline: 'YouTube sans pub, en arrière-plan & offline',
+    variants: [
+      {
+        id: 'youtube-premium-standard',
+        label: 'Standard',
+        description: 'Profitez de tous les avantages de YouTube Premium : vidéos sans publicité, lecture en arrière-plan et téléchargement pour regarder hors ligne.',
+        features: ['Sans publicité', 'Lecture en arrière-plan', 'Téléchargement offline', 'YouTube Music inclus'],
+        prices: [
+          { duration: '1 mois', amount: 5000,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 8500,  currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 12500, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'dazn',
+    name: 'DAZN',
+    category: 'Streaming Vidéo',
+    emoji: '⚽',
+    image: '/assets/images/dazn.jpg',
+    tagline: 'Football, boxe & MMA en direct — sport en streaming',
+    variants: [
+      {
+        id: 'dazn-standard',
+        label: 'Standard',
+        description: 'Profitez d\'un large catalogue de sports en direct et à la demande : football, boxe, MMA et bien plus selon les compétitions disponibles.',
+        features: ['Sports en direct', 'Football & boxe & MMA', 'Replay disponible', 'Téléphone, tablette & TV'],
+        prices: [
+          { duration: '1 mois', amount: 6500,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 12500, currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 16000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
   // ─── PACK STREAMING ─────────────────────────────────────────────────────────
 
   {
@@ -537,8 +625,20 @@ export const SERVICES: Service[] = [
     category: 'Sécurité & VPN',
     emoji: '',
     image: '/assets/images/expressvpn.jpg',
-    tagline: 'Le VPN le plus rapide — compte privé 10 appareils',
+    tagline: 'Le VPN le plus rapide — partagé ou privé 10 appareils',
     variants: [
+      {
+        id: 'expressvpn-partage',
+        label: 'Partagé',
+        description: 'Accès à un compte ExpressVPN partagé. L\'un des VPN les plus rapides du marché, serveurs dans 100+ pays. 1 appareil.',
+        features: ['1 appareil', 'Vitesse maximale', '100+ pays', 'Données protégées'],
+        prices: [
+          { duration: '1 mois', amount: 4500,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 8500,  currency: 'F CFA' },
+          { duration: '3 mois', amount: 12000, currency: 'F CFA', popular: true },
+          { duration: '1 an',   amount: 35000, currency: 'F CFA' },
+        ],
+      },
       {
         id: 'expressvpn-prive',
         label: 'Compte Privé',
@@ -579,8 +679,19 @@ export const SERVICES: Service[] = [
     category: 'Sécurité & VPN',
     emoji: '',
     image: '/assets/images/ipvanish.jpg',
-    tagline: 'Masquez votre IP — compte privé 10 appareils',
+    tagline: 'Masquez votre IP — partagé ou privé 10 appareils',
     variants: [
+      {
+        id: 'ipvanish-partage',
+        label: 'Partagé',
+        description: 'Accès à un compte IP Vanish partagé. Masquez votre identité en ligne et protégez vos données sur 1 appareil.',
+        features: ['1 appareil', 'IP masquée', '75+ pays', 'Données protégées'],
+        prices: [
+          { duration: '1 mois', amount: 5000,  currency: 'F CFA' },
+          { duration: '2 mois', amount: 9500,  currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 14000, currency: 'F CFA' },
+        ],
+      },
       {
         id: 'ipvanish-prive',
         label: 'Compte Privé',
@@ -660,6 +771,88 @@ export const SERVICES: Service[] = [
     ],
   },
 
+  {
+    id: 'aviravpn',
+    name: 'Avira VPN',
+    category: 'Sécurité & VPN',
+    emoji: '',
+    image: '/assets/images/aviravpn.jpg',
+    tagline: 'Protection Avira — partagé 1 appareil',
+    variants: [
+      {
+        id: 'aviravpn-partage',
+        label: 'Partagé',
+        description: 'Accès à un compte Avira VPN partagé. Navigation sécurisée et privée avec des serveurs rapides dans le monde entier. 1 appareil.',
+        features: ['1 appareil', 'Navigation sécurisée', 'Serveurs mondiaux', 'Données protégées'],
+        prices: [
+          { duration: '3 mois', amount: 8500,  currency: 'F CFA', popular: true },
+          { duration: '1 an',   amount: 25000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'astrill',
+    name: 'Astrill VPN',
+    category: 'Sécurité & VPN',
+    emoji: '',
+    image: '/assets/images/astrill.jpg',
+    tagline: 'VPN ultra-rapide — compte privé, contourne tous les pare-feux',
+    variants: [
+      {
+        id: 'astrill-prive',
+        label: 'Compte Privé',
+        description: 'Compte Astrill VPN privé créé avec votre propre adresse e-mail. Navigation ultra-rapide et sécurisée, contourne tous les pare-feux, serveurs rapides partout dans le monde.',
+        features: ['Compte à votre nom', 'Ultra-rapide', 'Contourne les pare-feux', 'Serveurs mondiaux'],
+        prices: [
+          { duration: '1 mois', amount: 20000,  currency: 'F CFA', popular: true },
+          { duration: '1 an',   amount: 115000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'envato',
+    name: 'Envato Elements',
+    category: 'Applications',
+    emoji: '',
+    image: '/assets/images/envato.jpg',
+    tagline: 'Templates, vidéos, musiques & ressources créatives illimitées',
+    variants: [
+      {
+        id: 'envato-prive',
+        label: 'Compte Privé',
+        description: 'Profitez d\'un accès à Envato Elements avec un compte personnel créé directement à votre nom. Accédez à une grande bibliothèque de templates, vidéos, photos, musiques, effets sonores, polices et éléments graphiques.',
+        features: ['Compte à votre nom', 'Templates & vidéos & photos', 'Musiques & effets sonores', 'Téléchargements illimités'],
+        prices: [
+          { duration: '1 mois', amount: 27000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'freepik',
+    name: 'Freepik',
+    category: 'Applications',
+    emoji: '',
+    image: '/assets/images/freepik.jpg',
+    tagline: 'Millions de ressources graphiques premium — compte privé',
+    variants: [
+      {
+        id: 'freepik-prive',
+        label: 'Compte Privé',
+        description: 'Accédez à une immense bibliothèque de photos, vecteurs, illustrations, mockups, icônes et ressources graphiques premium pour tous vos projets créatifs.',
+        features: ['Compte à votre nom', 'Photos & vecteurs & illustrations', 'Mockups & icônes premium', 'Téléchargements illimités'],
+        prices: [
+          { duration: '1 mois', amount: 10000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
   // ─── INTELLIGENCE ARTIFICIELLE ──────────────────────────────────────────────
 
   {
@@ -676,7 +869,7 @@ export const SERVICES: Service[] = [
         description: 'Compte ChatGPT Pro privé créé avec votre propre adresse e-mail. Fonctionnalités avancées de l\'IA, accès rapide et illimité aux réponses, sur téléphone, tablette ou ordinateur.',
         features: ['Compte à votre nom', 'Accès illimité', 'Modèle dernière génération', 'Téléphone & PC'],
         prices: [
-          { duration: '1 mois', amount: 5500,  currency: 'F CFA', popular: true },
+          { duration: '1 mois', amount: 6500,  currency: 'F CFA', popular: true },
           { duration: '2 mois', amount: 10000, currency: 'F CFA' },
           { duration: '3 mois', amount: 15000, currency: 'F CFA' },
         ],
@@ -723,6 +916,226 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  // ─── CARTES CADEAUX ─────────────────────────────────────────────────────────
+
+  {
+    id: 'psn',
+    name: 'PSN PlayStation',
+    category: 'Cartes Cadeaux',
+    emoji: '🎮',
+    image: '/assets/images/psn.jpg',
+    tagline: 'Crédit PlayStation Store — jeux, DLC & abonnements',
+    variants: [
+      {
+        id: 'psn-credit',
+        label: 'Carte Cadeau',
+        description: 'Ajoutez facilement du crédit à votre compte Sony PlayStation Network et profitez d\'un large choix de contenus sur le PlayStation Store : jeux, extensions, abonnements, films et contenus exclusifs. Compatible PS5 et PS4.',
+        features: ['Compatible PS5 & PS4', 'Jeux & DLC & abonnements', 'Livraison rapide', 'Activation immédiate'],
+        prices: [
+          { duration: '10 €',  amount: 8500,  currency: 'F CFA' },
+          { duration: '20 €',  amount: 16000, currency: 'F CFA' },
+          { duration: '25 €',  amount: 20000, currency: 'F CFA', popular: true },
+          { duration: '50 €',  amount: 39000, currency: 'F CFA' },
+          { duration: '100 €', amount: 75000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'apple-itunes',
+    name: 'Apple Gift Card FR',
+    category: 'Cartes Cadeaux',
+    emoji: '🍎',
+    image: '/assets/images/appleitunes.jpg',
+    tagline: 'Crédit Apple — App Store, iTunes, Apple TV+',
+    variants: [
+      {
+        id: 'apple-itunes-credit',
+        label: 'Carte Cadeau',
+        description: 'Ajoutez facilement du crédit à votre compte Apple et profitez de tous les services disponibles sur l\'App Store et l\'iTunes Store : applications, jeux, films, séries, musique ou abonnements. Compatible iPhone, iPad et MacBook.',
+        features: ['Compatible iPhone, iPad & Mac', 'App Store & iTunes', 'Films & musique & apps', 'Livraison rapide'],
+        prices: [
+          { duration: '10 €',  amount: 9000,  currency: 'F CFA' },
+          { duration: '20 €',  amount: 17000, currency: 'F CFA' },
+          { duration: '25 €',  amount: 20000, currency: 'F CFA', popular: true },
+          { duration: '50 €',  amount: 39000, currency: 'F CFA' },
+          { duration: '100 €', amount: 75000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'steam',
+    name: 'Steam Europe',
+    category: 'Cartes Cadeaux',
+    emoji: '🎮',
+    image: '/assets/images/steam.jpg',
+    tagline: 'Crédit Steam — des milliers de jeux PC disponibles',
+    variants: [
+      {
+        id: 'steam-credit',
+        label: 'Carte Cadeau',
+        description: 'Ajoutez facilement du crédit à votre compte Steam et accédez à des milliers de jeux sur la célèbre plateforme de Valve : jeux, DLC, logiciels et objets en jeu directement depuis la boutique Steam.',
+        features: ['Milliers de jeux PC', 'DLC & logiciels & objets', 'Boutique Steam', 'Livraison rapide'],
+        prices: [
+          { duration: '10 €', amount: 9500,  currency: 'F CFA' },
+          { duration: '20 €', amount: 18000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'xbox-gift',
+    name: 'Xbox Gift Card',
+    category: 'Cartes Cadeaux',
+    emoji: '🎮',
+    image: '/assets/images/xbox.jpg',
+    tagline: 'Crédit Microsoft — Xbox Store & Microsoft Store',
+    variants: [
+      {
+        id: 'xbox-gift-credit',
+        label: 'Carte Cadeau',
+        description: 'Ajoutez facilement du crédit à votre compte Microsoft et profitez de tous les contenus disponibles sur le Microsoft Store et le Xbox Store : jeux, DLC, films, applications ou abonnements. Compatible Xbox Series X|S et Xbox One.',
+        features: ['Compatible Xbox Series X|S & One', 'Jeux & DLC & films & apps', 'Microsoft Store', 'Livraison rapide'],
+        prices: [
+          { duration: '5 €',  amount: 6500,  currency: 'F CFA' },
+          { duration: '10 €', amount: 9500,  currency: 'F CFA' },
+          { duration: '20 €', amount: 18000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'roblox',
+    name: 'Roblox',
+    category: 'Cartes Cadeaux',
+    emoji: '🎮',
+    image: '/assets/images/roblox.jpg',
+    tagline: 'Robux — avatars, objets exclusifs & contenus premium',
+    variants: [
+      {
+        id: 'roblox-robux',
+        label: 'Robux',
+        description: 'Ajoutez du crédit à votre compte Roblox : achetez des Robux, débloquez des objets exclusifs, personnalisez votre avatar et accédez à divers contenus premium dans le jeu.',
+        features: ['Robux instantané', 'Objets & avatars exclusifs', 'Contenus premium', 'Activation rapide'],
+        prices: [
+          { duration: '400 Robux',  amount: 6000,  currency: 'F CFA' },
+          { duration: '800 Robux',  amount: 9000,  currency: 'F CFA', popular: true },
+          { duration: '1500 Robux', amount: 15000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  // ─── GAMING ─────────────────────────────────────────────────────────────────
+
+  {
+    id: 'xbox-game-pass',
+    name: 'Xbox Game Pass',
+    category: 'Gaming',
+    emoji: '🎮',
+    image: '/assets/images/xboxgamepass.jpg',
+    tagline: 'Centaines de jeux console, PC & cloud — Ultimate',
+    variants: [
+      {
+        id: 'xbox-game-pass-ultimate',
+        label: 'Ultimate',
+        description: 'Profitez d\'un accès complet à des centaines de jeux sur console, PC et cloud avec l\'abonnement Xbox Game Pass Ultimate de Microsoft.',
+        features: ['Centaines de jeux inclus', 'Console & PC & cloud', 'Xbox Live Gold inclus', 'Nouveaux jeux chaque mois'],
+        prices: [
+          { duration: '1 mois', amount: 13500, currency: 'F CFA', popular: true },
+          { duration: '3 mois', amount: 37000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'resident-evil-2',
+    name: 'Resident Evil 2 Deluxe',
+    category: 'Gaming',
+    emoji: '🧟',
+    image: '/assets/images/residentevil2.jpg',
+    tagline: 'Survival horror remake — Xbox One & Series X|S',
+    variants: [
+      {
+        id: 'resident-evil-2-xbox',
+        label: 'Xbox — Clé Digitale',
+        description: 'Plongez dans l\'horreur avec Resident Evil 2 Deluxe Edition, un remake immersif du classique survival horror, incluant le jeu complet remastérisé, les contenus bonus Deluxe (costumes, armes, extras) et entièrement compatible Xbox One et Xbox Series X|S.',
+        features: ['Jeu complet remastérisé', 'Contenus Deluxe inclus', 'Xbox One & Series X|S', 'Livraison rapide'],
+        prices: [
+          { duration: 'Clé Digitale', amount: 12000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'valorant',
+    name: 'Valorant Points',
+    category: 'Gaming',
+    emoji: '🔫',
+    image: '/assets/images/valorant.jpg',
+    tagline: 'VP Europe — skins, passes de combat & contenus exclusifs',
+    variants: [
+      {
+        id: 'valorant-vp',
+        label: 'Europe',
+        description: 'Rechargez votre compte Valorant avec des Points Valorant (VP) pour débloquer skins, passes de combat et contenus exclusifs. Livraison rapide du code après paiement, activation simple.',
+        features: ['Skins & passes de combat', 'Contenus exclusifs', 'Livraison rapide', 'Activation immédiate'],
+        prices: [
+          { duration: '1 000 VP', amount: 10000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'pubg',
+    name: 'PUBG UC',
+    category: 'Gaming',
+    emoji: '🪖',
+    image: '/assets/images/pubg.jpg',
+    tagline: 'Unknown Cash Global — skins, tenues & caisses PUBG',
+    variants: [
+      {
+        id: 'pubg-uc',
+        label: 'Global',
+        description: 'Rechargez votre compte PUBG: Battlegrounds pour acheter skins, tenues, caisses et autres contenus exclusifs dans le jeu. Livraison rapide après paiement, activation simple.',
+        features: ['Skins & tenues & caisses', 'Global — toutes régions', 'Livraison rapide', 'Activation immédiate'],
+        prices: [
+          { duration: '325 UC',  amount: 6000,  currency: 'F CFA' },
+          { duration: '660 UC',  amount: 10000, currency: 'F CFA', popular: true },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'free-fire',
+    name: 'Free Fire Diamonds',
+    category: 'Gaming',
+    emoji: '💎',
+    image: '/assets/images/freefire.jpg',
+    tagline: 'Diamonds Garena — skins, personnages & emotes',
+    variants: [
+      {
+        id: 'free-fire-diamonds',
+        label: 'Diamonds',
+        description: 'Rechargez votre compte Free Fire avec des diamants pour acheter des skins, personnages, emotes et autres contenus exclusifs dans le jeu. Livraison rapide après paiement.',
+        features: ['Skins & personnages & emotes', 'Bonus diamonds inclus', 'Livraison rapide', 'Activation immédiate'],
+        prices: [
+          { duration: '530 + 53 Diamonds',   amount: 5500,  currency: 'F CFA' },
+          { duration: '1000 + 180 Diamonds', amount: 8500,  currency: 'F CFA', popular: true },
+          { duration: '2200 + 220 Diamonds', amount: 15000, currency: 'F CFA' },
+        ],
+      },
+    ],
+  },
 ]
 
 // Catégories dans l'ordre d'affichage
@@ -734,4 +1147,6 @@ export const CATEGORIES: Category[] = [
   'Sécurité & VPN',
   'Applications',
   'Intelligence Artificielle',
+  'Cartes Cadeaux',
+  'Gaming',
 ]

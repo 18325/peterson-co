@@ -18,13 +18,13 @@ const LINKS = {
     { label: 'Remboursement',     href: '#'          },
   ],
   Légal: [
-    { label: "Conditions d'utilisation",     href: '#' },
-    { label: 'Politique de confidentialité', href: '#' },
-    { label: 'Mentions légales',             href: '#' },
+    { label: "Conditions d'utilisation",     href: '/legal/conditions'     },
+    { label: 'Politique de confidentialité', href: '/legal/confidentialite' },
+    { label: 'Mentions légales',             href: '/legal/mentions'        },
   ],
 }
 
-const PAYMENT_METHODS = ['Wave', 'Orange Money', 'MTN MoMo', 'PayPal', 'Visa']
+const PAYMENT_METHODS = ['Wave', 'Orange Money', 'MTN MoMo', 'Visa']
 
 export default function Footer() {
   const waText = encodeURIComponent('Bonjour ! Je souhaite commander un abonnement Peterson&Co.')

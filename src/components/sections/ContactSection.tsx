@@ -10,7 +10,7 @@ const FAQ = [
   },
   {
     q: 'Quels modes de paiement acceptez-vous ?',
-    a: 'Wave, Orange Money, MTN MoMo, PayPal et carte bancaire (Visa/Mastercard).',
+    a: 'Wave, Orange Money, MTN MoMo et carte bancaire (Visa/Mastercard).',
   },
   {
     q: 'Que se passe-t-il si le compte ne fonctionne pas ?',

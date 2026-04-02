@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 // Metadata est un TYPE Next.js — TypeScript vérifie que tu ne mets pas
 // n'importe quoi dans metadata (ex: un chiffre à la place d'une string)
 import './globals.css'
+import SplashScreen from '@/components/SplashScreen'
 
 export const metadata: Metadata = {
   title: 'Peterson&Co — Abonnements Premium',
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body>
+        <SplashScreen />
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="dark"

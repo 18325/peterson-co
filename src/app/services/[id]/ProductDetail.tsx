@@ -9,7 +9,7 @@ import { formatPrice, categoryToSlug } from '@/lib/format'
 import { WHATSAPP_NUMBER } from '@/constants/config'
 import { SERVICES } from '@/constants/services'
 
-type PaymentMethodId = 'wave' | 'orange_money' | 'mtn_momo' | 'paypal' | 'visa'
+type PaymentMethodId = 'wave' | 'orange_money' | 'mtn_momo' | 'visa'
 
 const PAYMENT_METHODS: Array<{
   id: PaymentMethodId
@@ -19,7 +19,6 @@ const PAYMENT_METHODS: Array<{
   { id: 'wave', label: 'Wave', hint: 'Mobile money' },
   { id: 'orange_money', label: 'Orange Money', hint: 'Paiement mobile' },
   { id: 'mtn_momo', label: 'MTN MoMo', hint: 'Paiement mobile' },
-  { id: 'paypal', label: 'PayPal', hint: 'International' },
   { id: 'visa', label: 'Visa', hint: 'Carte bancaire' },
 ]
 
@@ -70,7 +69,7 @@ const CATEGORY_FAQ: Record<string, Array<{ q: string; a: string }>> = {
 
 const DEFAULT_FAQ = [
   { q: 'Comment se passe la livraison ?', a: 'Vous recevez vos accès directement sur WhatsApp en moins de 30 minutes après confirmation de votre paiement.' },
-  { q: 'Le paiement est-il sécurisé ?', a: 'Oui, nous acceptons Wave, Orange Money, MTN, PayPal et Visa. Toutes les transactions sont protégées.' },
+  { q: 'Le paiement est-il sécurisé ?', a: 'Oui, nous acceptons Wave, Orange Money, MTN MoMo et Visa. Toutes les transactions sont protégées.' },
   { q: 'Et si mon accès ne fonctionne pas ?', a: 'Nous garantissons votre compte. Contactez-nous sur WhatsApp et nous résolvons le problème immédiatement et sans frais.' },
 ]
 

@@ -12,7 +12,7 @@ const STEPS = [
     number: '02',
     title: 'Payez en toute sécurité',
     description:
-      'Réglez via Wave, Orange Money, MTN MoMo, PayPal ou carte bancaire. Paiement chiffré, aucune donnée bancaire stockée.',
+      'Réglez via Wave, Orange Money, MTN MoMo ou carte bancaire. Paiement chiffré, aucune donnée bancaire stockée.',
     color: '#4488FF',
   },
   {
