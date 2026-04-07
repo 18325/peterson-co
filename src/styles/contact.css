@@ -1,22 +1,304 @@
 /* ──────────────────────────────────────────
-   Section Contact
+   Section Contact — Fiabilité & Transparence
    ────────────────────────────────────────── */
 
-/* Désactive l'effet hover des cards dans le contact */
+.cs-section {
+  padding: 96px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── En-tête ── */
+.cs-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.cs-header__eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+
+.cs-header__title {
+  font-size: clamp(36px, 6vw, 64px);
+  color: var(--text-main);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.cs-header__sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── Grille 2 colonnes ── */
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .cs-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── Label de colonne ── */
+.cs-col-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 32px;
+}
+
+/* ──────────────────────────────────────────
+   Wave inputs (adapté depuis Uiverse.io)
+   ────────────────────────────────────────── */
+
+.wave-group {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.wave-group__input {
+  font-size: 15px;
+  font-family: 'Manrope', sans-serif;
+  padding: 12px 4px 8px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-main);
+  transition: border-color 0.2s;
+}
+
+.wave-group__input:focus {
+  outline: none;
+  border-bottom-color: transparent;
+}
+
+.wave-group__input--textarea {
+  resize: none;
+  padding-top: 16px;
+}
+
+/* Floating label */
+.wave-label {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 400;
+  position: absolute;
+  pointer-events: none;
+  left: 4px;
+  top: 12px;
+  display: flex;
+}
+
+.wave-label__char {
+  transition: transform 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  transition-delay: calc(var(--index) * 0.03s);
+}
+
+/* Label monte quand focus ou valeur présente */
+.wave-group__input:focus   ~ .wave-label .wave-label__char,
+.wave-group__input:not(:placeholder-shown) ~ .wave-label .wave-label__char {
+  transform: translateY(-22px);
+  font-size: 11px;
+  color: var(--cyan);
+}
+
+/* Barre animée */
+.wave-group__bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.wave-group__bar::before,
+.wave-group__bar::after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  position: absolute;
+  background: var(--grad-primary);
+  transition: width 0.25s ease;
+}
+
+.wave-group__bar::before { left: 50%; }
+.wave-group__bar::after  { right: 50%; }
+
+.wave-group__input:focus ~ .wave-group__bar::before,
+.wave-group__input:focus ~ .wave-group__bar::after {
+  width: 50%;
+}
+
+/* ── Bouton WhatsApp ── */
+.cs-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: rgba(37, 211, 102, 0.15);
+  color: #25D366;
+  border: 1px solid rgba(37, 211, 102, 0.30);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, opacity 0.2s;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.cs-wa-btn:hover { background: rgba(37, 211, 102, 0.26); transform: translateY(-1px); }
+
+.cs-wa-btn[data-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.cs-wa-btn[data-disabled="true"]:hover { transform: none; }
+
+.cs-wa-btn--outline {
+  width: auto;
+  padding: 11px 20px;
+  margin-bottom: 0;
+}
+
+/* ── Hint ── */
+.cs-form-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+/* ── Trust chips ── */
+.cs-trust-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.cs-trust-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.cs-trust-chip__icon { font-size: 18px; flex-shrink: 0; }
+.cs-trust-chip__label strong { color: var(--text-main); }
+
+/* ── FAQ colonne droite ── */
+.cs-faq-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.cs-faq-item {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.cs-faq-item:last-child { border-bottom: none; }
+.cs-faq-item:hover { background: rgba(34,119,196,0.05); }
+.cs-faq-item[data-open="true"] { background: rgba(34,119,196,0.04); }
+
+.cs-faq-item__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cs-faq-item__q {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.cs-faq-item__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(34,119,196,0.08);
+  border: 1px solid var(--border-strong);
+  color: var(--cyan);
+  font-size: 16px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-faq-item__a {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* ── Card WhatsApp direct ── */
+.cs-wa-card {
+  padding: 24px;
+  border-radius: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.cs-wa-card__text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ── Désactive les effets hover de .card dans cette section ── */
 .contact-section .card         { transition: none; }
 .contact-section .card:hover   { transform: none; border-color: var(--border); box-shadow: none; }
 [data-theme="light"] .contact-section .card:hover { box-shadow: var(--neu-shadow); }
 
-.contact-input {
-  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
+/* ── Light mode ── */
+[data-theme="light"] .cs-trust-chips,
+[data-theme="light"] .cs-wa-card { background: #FFFFFF; border-color: rgba(0,0,0,0.08); }
 
-.contact-input:hover {
-  border-color: var(--border-strong) !important;
-  background-color: color-mix(in srgb, var(--bg-elevated) 35%, transparent) !important;
-}
-
-.contact-input:focus {
-  border-color: var(--cyan) !important;
-  box-shadow: 0 0 0 3px rgba(34,119,196,0.10);
-}
+[data-theme="light"] .wave-group__input { color: #111111; border-bottom-color: rgba(0,0,0,0.20); }
+[data-theme="light"] .wave-label        { color: #888888; }

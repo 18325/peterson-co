@@ -10,7 +10,9 @@
 @import '../styles/hero.css';
 @import '../styles/how-it-works.css';
 @import '../styles/services.css';
-@import '../styles/product-detail.css';
+@import '../styles/product-detail-layout.css';
+@import '../styles/product-detail-panel.css';
+@import '../styles/product-detail-sections.css';
 @import '../styles/legal.css';
 @import '../styles/contact.css';
 
