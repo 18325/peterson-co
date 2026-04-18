@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import Image from 'next/image'
 import type { Service, ServiceVariant, ServicePrice } from '@/types'
 import { formatPrice } from '@/lib/format'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { PAYMENT_METHODS, type PaymentMethodId } from '../_data/payment'
+import PaymentModal from '@/components/payment/PaymentModal'
+import { useRouter } from 'next/navigation'
 
 interface OrderPanelProps {
   service: Service
@@ -31,11 +34,56 @@ export default function OrderPanel({
   onPaymentChange,
   onAddToCart,
 }: OrderPanelProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const router = useRouter()
+  
   const hasMultipleVariants = service.variants.length > 1
   const selectedPayment = PAYMENT_METHODS.find((m) => m.id === selectedPaymentMethod) ?? PAYMENT_METHODS[0]
 
+  const isOnlinePayment = ['mobilemoney', 'moovmoney', 'visa', 'mastercard'].includes(selectedPaymentMethod)
+
+  const handleValidate = () => {
+    if (isOnlinePayment) {
+      setIsModalOpen(true)
+    } else {
+      window.open(whatsappUrl, '_blank')
+    }
+  }
+
+  const handleConfirmPayment = async (data: { email: string; phone: string }) => {
+    try {
+      const response = await fetch('/api/pay/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          amount: selectedPrice.amount,
+          description: `${service.name} - ${selectedVariant.label} (${selectedPrice.duration})`,
+          firstname: 'Client', // Or collect from form
+        })
+      })
+
+      const result = await response.json()
+      if (result.url) {
+        window.location.href = result.url
+      } else {
+        throw new Error(result.error || 'Erreur lors de la création du paiement')
+      }
+    } catch (error: any) {
+      alert(error.message)
+      throw error
+    }
+  }
+
   return (
     <div className="pd-info-col">
+      <PaymentModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmPayment}
+        amount={selectedPrice.amount}
+        serviceName={`${service.name} - ${selectedVariant.label} (${selectedPrice.duration})`}
+      />
       <div className="pd-order-panel" data-payment-method={selectedPayment.id}>
 
         <div className="pd-order-kicker">Commande rapide</div>
@@ -156,10 +204,20 @@ export default function OrderPanel({
           <button type="button" className="pd-cta-secondary" onClick={onAddToCart}>
             Ajouter au panier
           </button>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="pd-cta-main pd-cta-main--accent">
-            <WhatsAppIcon size={20} />
-            Valider
-          </a>
+          <button 
+            type="button" 
+            onClick={handleValidate}
+            className="pd-cta-main pd-cta-main--accent w-full"
+          >
+            {isOnlinePayment ? (
+              <>🚀 Valider le paiement</>
+            ) : (
+              <>
+                <WhatsAppIcon size={20} />
+                Valider
+              </>
+            )}
+          </button>
         </div>
 
       </div>
