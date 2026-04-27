@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { fedapay } from '@/lib/fedapay';
+import { normalisePhone } from '@/lib/whatsapp';
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,6 +10,15 @@ export async function POST(req: NextRequest) {
 
     if (!email || !amount || !phone) {
       return NextResponse.json({ error: 'Email, phone and amount are required' }, { status: 400 });
+    }
+
+    // Validate phone is a proper international number before proceeding
+    const normalisedPhone = normalisePhone(phone);
+    if (!normalisedPhone) {
+      return NextResponse.json(
+        { error: 'Numéro de téléphone invalide. Veuillez entrer un numéro au format international (ex: +22997000000).' },
+        { status: 400 }
+      );
     }
 
     const localId = crypto.randomUUID();

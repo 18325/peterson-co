@@ -11,18 +11,46 @@ interface PaymentModalProps {
   serviceName: string
 }
 
+/**
+ * Validates that a phone string is a plausible international number.
+ * Accepts an optional leading "+", then 7-15 digits (E.164).
+ */
+function isValidPhone(raw: string): boolean {
+  const cleaned = raw.replace(/^\+/, '').replace(/[\s\-().]/g, '')
+  if (!/^\d+$/.test(cleaned)) return false
+  return cleaned.length >= 7 && cleaned.length <= 15
+}
+
 export default function PaymentModal({ isOpen, onClose, onConfirm, amount, serviceName }: PaymentModalProps) {
   const [email, setEmail] = useState('')
+  const [countryCode, setCountryCode] = useState('+229')
   const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
+  const [phoneError, setPhoneError] = useState('')
 
   if (!isOpen) return null
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setPhoneError('')
+
+    // Clean the phone number and combine with country code
+    let cleanedPhone = phone.replace(/^\+/, '').replace(/^00/, '').replace(/[\s\-().]/g, '')
+    // Some countries have leading 0s for local numbers that need to be dropped when using country code
+    if (countryCode === '+33' && cleanedPhone.startsWith('0')) {
+      cleanedPhone = cleanedPhone.substring(1)
+    }
+
+    const fullPhone = `${countryCode}${cleanedPhone}`
+
+    if (!isValidPhone(fullPhone)) {
+      setPhoneError('Numéro invalide. Veuillez vérifier le format de votre numéro.')
+      return
+    }
+
     setLoading(true)
     try {
-      await onConfirm({ email, phone })
+      await onConfirm({ email, phone: fullPhone })
     } catch (error) {
       console.error(error)
     } finally {
@@ -80,17 +108,51 @@ export default function PaymentModal({ isOpen, onClose, onConfirm, amount, servi
               <label className="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
                 Numéro WhatsApp
               </label>
-              <input
-                required
-                type="tel"
-                placeholder="97000000"
-                className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <p className="text-[10px] text-gray-400 mt-2 ml-1 italic">
-                * Vos accès seront envoyés sur ce numéro.
-              </p>
+              <div className="flex gap-2">
+                <select
+                  className="w-1/3 px-3 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all font-medium"
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                >
+                  <option value="+229">🇧🇯 +229</option>
+                  <option value="+228">🇹🇬 +228</option>
+                  <option value="+225">🇨🇮 +225</option>
+                  <option value="+221">🇸🇳 +221</option>
+                  <option value="+223">🇲🇱 +223</option>
+                  <option value="+226">🇧🇫 +226</option>
+                  <option value="+227">🇳🇪 +227</option>
+                  <option value="+237">🇨🇲 +237</option>
+                  <option value="+241">🇬🇦 +241</option>
+                  <option value="+242">🇨🇬 +242</option>
+                  <option value="+243">🇨🇩 +243</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+1">🇺🇸/🇨🇦 +1</option>
+                </select>
+                <input
+                  required
+                  type="tel"
+                  placeholder="97 00 00 00"
+                  className={`w-2/3 px-5 py-4 bg-gray-50 border rounded-2xl focus:ring-2 outline-none transition-all ${
+                    phoneError
+                      ? 'border-red-400 focus:ring-red-300'
+                      : 'border-gray-100 focus:ring-black'
+                  }`}
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value)
+                    if (phoneError) setPhoneError('')
+                  }}
+                />
+              </div>
+              {phoneError ? (
+                <p className="text-[11px] text-red-500 mt-2 ml-1 font-medium">
+                  {phoneError}
+                </p>
+              ) : (
+                <p className="text-[10px] text-gray-400 mt-2 ml-1 italic">
+                  * Vos accès seront envoyés sur ce numéro WhatsApp.
+                </p>
+              )}
             </div>
 
             <button
