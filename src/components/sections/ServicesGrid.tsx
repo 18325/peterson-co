@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, CSSProperties } from 'react'
 import Link from 'next/link'
 import { SERVICES, CATEGORIES } from '@/constants/services'
 import { categoryToSlug } from '@/lib/format'
@@ -8,9 +8,52 @@ import ServiceCard from './ServicesCard'
 
 const CONTENT_CATS = CATEGORIES.filter((c) => c !== 'Tous') as string[]
 
+/* ── Hook auto-scroll ── */
+function useAutoScroll(speed = 0.7) {
+  const ref = useRef<HTMLDivElement>(null)
+  const paused = useRef(false)
+  const frame  = useRef<number>(0)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const tick = () => {
+      if (!paused.current) {
+        el.scrollLeft += speed
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+          el.scrollLeft = 0
+        }
+      }
+      frame.current = requestAnimationFrame(tick)
+    }
+
+    frame.current = requestAnimationFrame(tick)
+
+    const pause  = () => { paused.current = true }
+    const resume = () => { paused.current = false }
+
+    el.addEventListener('mouseenter', pause)
+    el.addEventListener('mouseleave', resume)
+    el.addEventListener('touchstart', pause,  { passive: true })
+    el.addEventListener('touchend',   resume)
+
+    return () => {
+      cancelAnimationFrame(frame.current)
+      el.removeEventListener('mouseenter', pause)
+      el.removeEventListener('mouseleave', resume)
+      el.removeEventListener('touchstart', pause)
+      el.removeEventListener('touchend',   resume)
+    }
+  }, [speed])
+
+  return ref
+}
+
 /* ── Rangée par catégorie ── */
 function CategoryRow({ cat, services }: { cat: string; services: typeof SERVICES }) {
-  const slug = categoryToSlug(cat)
+  const slug      = categoryToSlug(cat)
+  const trackRef  = useAutoScroll(0.6)
 
   if (services.length === 0) return null
 
@@ -25,7 +68,7 @@ function CategoryRow({ cat, services }: { cat: string; services: typeof SERVICES
           <Link href={`/services/category/${slug}`} className="srow__see-all">Tout voir →</Link>
         </div>
       </div>
-      <div className="srow__track">
+      <div className="srow__track" ref={trackRef}>
         {services.map((s) => <ServiceCard key={s.id} service={s} />)}
       </div>
     </div>
@@ -52,29 +95,60 @@ function SearchResults({ results }: { results: typeof SERVICES }) {
 
 /* ── Composant principal ── */
 export default function ServicesGrid() {
-  const [active, setActive]   = useState('Tous')
-  const [query,  setQuery]    = useState('')
+  const [active, setActive] = useState('Tous')
+  const [query,  setQuery]  = useState('')
+  const [glider, setGlider] = useState<CSSProperties>({ opacity: 0 })
 
-  /* Auto-scroll des filtres */
-  const filterRef = useRef<HTMLDivElement>(null)
+  const filterRef    = useRef<HTMLDivElement>(null)
+  const trackRef     = useRef<HTMLDivElement>(null)
+  const filterPaused = useRef(false)
+  const filterFrame  = useRef<number>(0)
+  const btnRefs      = useRef<Map<string, HTMLButtonElement>>(new Map())
+
+  /* Positionne le glider sur le bouton actif */
+  const moveGlider = useCallback((cat: string) => {
+    const btn   = btnRefs.current.get(cat)
+    const track = trackRef.current
+    if (!btn || !track) return
+    setGlider({
+      opacity: 1,
+      left:   btn.offsetLeft,
+      width:  btn.offsetWidth,
+      height: btn.offsetHeight,
+    })
+  }, [])
+
+  /* Glider initial après mount */
+  useEffect(() => {
+    // Petit délai pour que les boutons soient mesurables
+    const id = setTimeout(() => moveGlider('Tous'), 80)
+    return () => clearTimeout(id)
+  }, [moveGlider])
+
+  /* Recalcule le glider si la fenêtre change de taille */
+  useEffect(() => {
+    const onResize = () => moveGlider(active)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [active, moveGlider])
+
+  /* Auto-scroll filtres */
   useEffect(() => {
     const el = filterRef.current
     if (!el) return
-    let frame: number
-    let paused = false
 
     const tick = () => {
-      if (!paused) {
-        el.scrollLeft += 0.6
+      if (!filterPaused.current) {
+        el.scrollLeft += 0.5
         if (el.scrollLeft >= el.scrollWidth - el.clientWidth) el.scrollLeft = 0
       }
-      frame = requestAnimationFrame(tick)
+      filterFrame.current = requestAnimationFrame(tick)
     }
 
-    frame = requestAnimationFrame(tick)
+    filterFrame.current = requestAnimationFrame(tick)
 
-    const pause  = () => { paused = true }
-    const resume = () => { paused = false }
+    const pause  = () => { filterPaused.current = true }
+    const resume = () => { filterPaused.current = false }
 
     el.addEventListener('mouseenter', pause)
     el.addEventListener('mouseleave', resume)
@@ -82,7 +156,7 @@ export default function ServicesGrid() {
     el.addEventListener('touchend',   resume)
 
     return () => {
-      cancelAnimationFrame(frame)
+      cancelAnimationFrame(filterFrame.current)
       el.removeEventListener('mouseenter', pause)
       el.removeEventListener('mouseleave', resume)
       el.removeEventListener('touchstart', pause)
@@ -90,10 +164,25 @@ export default function ServicesGrid() {
     }
   }, [])
 
-  const trimmed = query.trim().toLowerCase()
+  /* Clic filtre : active + centre + glider */
+  const handleFilterClick = useCallback((cat: string) => {
+    setActive(cat)
+    moveGlider(cat)
+    filterPaused.current = true
+
+    const btn = btnRefs.current.get(cat)
+    const el  = filterRef.current
+    if (btn && el) {
+      const btnCenter = btn.offsetLeft + btn.offsetWidth / 2
+      el.scrollTo({ left: btnCenter - el.clientWidth / 2, behavior: 'smooth' })
+    }
+
+    setTimeout(() => { filterPaused.current = false }, 4000)
+  }, [moveGlider])
+
+  const trimmed    = query.trim().toLowerCase()
   const isSearching = trimmed.length > 0
 
-  /* Résultats de recherche */
   const searchResults = isSearching
     ? SERVICES.filter((s) =>
         s.name.toLowerCase().includes(trimmed) ||
@@ -102,7 +191,6 @@ export default function ServicesGrid() {
       )
     : []
 
-  /* Catégories à afficher (mode filtre) */
   const displayedCats: string[] = active === 'Tous' ? CONTENT_CATS : [active]
 
   return (
@@ -141,21 +229,26 @@ export default function ServicesGrid() {
         </div>
       </div>
 
-      {/* ── Filtres catégories (masqués en mode search) ── */}
+      {/* ── Filtres catégories ── */}
       {!isSearching && (
-        <div className="sgrid__filters-marquee" ref={filterRef}>
-          <div className="sgrid__filters-track">
-            {CATEGORIES.map((cat: string, index: number) => (
-              <button
-                key={`${cat}-${index}`}
-                onClick={() => setActive(cat)}
-                className="sgrid__filter-btn"
-                data-active={active === cat ? 'true' : 'false'}
-              >
-                <span className="sgrid__filter-dot" aria-hidden="true" />
-                {cat}
-              </button>
-            ))}
+        <div className="sgrid__filters-wrap">
+          <div className="sgrid__filters-marquee" ref={filterRef}>
+            <div className="sgrid__filters-track" ref={trackRef}>
+              {/* Glider animé */}
+              <div className="sgrid__glider" style={glider} aria-hidden="true" />
+
+              {CATEGORIES.map((cat: string, index: number) => (
+                <button
+                  key={`${cat}-${index}`}
+                  ref={(el) => { if (el) btnRefs.current.set(cat, el) }}
+                  onClick={() => handleFilterClick(cat)}
+                  className="sgrid__filter-btn"
+                  data-active={active === cat ? 'true' : 'false'}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

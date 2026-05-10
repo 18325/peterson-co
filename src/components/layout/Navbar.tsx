@@ -4,10 +4,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback, CSSProperties } from 'react'
 import { useCart } from '@/context/CartContext'
 
-const LOGO_PRINCIPAL = '/assets/identite_visuelle/LOGO PRINCIPAL COLORE/LOGO PRINCIPAL.png'
+const LOGO_PRINCIPAL       = '/assets/identite_visuelle/LOGO PRINCIPAL COLORE/LOGO PRINCIPAL.png'
 const LOGO_PRINCIPAL_WHITE = '/assets/identite_visuelle/VERSION MONOCHROME ALL/LOGO PRINCIPAL WHITE.png'
 
 const NAV_LINKS = [
@@ -18,11 +18,44 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const { resolvedTheme, setTheme } = useTheme()
-  const [open, setOpen] = useState(false)
+  const [open,    setOpen]    = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [active,  setActive]  = useState<string | null>(null)
+  const [glider,  setGlider]  = useState<CSSProperties>({ opacity: 0 })
   const { count, openCart } = useCart()
 
+  const navRef  = useRef<HTMLDivElement>(null)
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map())
+
   useEffect(() => { setMounted(true) }, [])
+
+  /* Positionne le glider sur le lien cliqué */
+  const moveGlider = useCallback((href: string) => {
+    const el  = linkRefs.current.get(href)
+    const nav = navRef.current
+    if (!el || !nav) return
+    const navRect = nav.getBoundingClientRect()
+    const elRect  = el.getBoundingClientRect()
+    setGlider({
+      opacity: 1,
+      left:   elRect.left - navRect.left,
+      width:  elRect.width,
+      height: elRect.height,
+    })
+  }, [])
+
+  const handleClick = useCallback((href: string) => {
+    setActive(href)
+    moveGlider(href)
+  }, [moveGlider])
+
+  /* Recalcule si resize */
+  useEffect(() => {
+    if (!active) return
+    const onResize = () => moveGlider(active)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [active, moveGlider])
 
   return (
     <header className="navbar">
@@ -38,10 +71,22 @@ export default function Navbar() {
             className="navbar__logo-img navbar__logo-img--dark" priority />
         </Link>
 
-        {/* LIENS desktop */}
-        <nav className="navbar__links">
+        {/* LIENS desktop — conteneur glass */}
+        <nav className="navbar__links" ref={navRef}>
+          {/* Glider animé */}
+          <div className="navbar__glider" style={glider} aria-hidden="true" />
+
           {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="navbar__link">{l.label}</Link>
+            <Link
+              key={l.href}
+              href={l.href}
+              ref={(el) => { if (el) linkRefs.current.set(l.href, el) }}
+              className="navbar__link"
+              data-active={active === l.href ? 'true' : 'false'}
+              onClick={() => handleClick(l.href)}
+            >
+              {l.label}
+            </Link>
           ))}
         </nav>
 
