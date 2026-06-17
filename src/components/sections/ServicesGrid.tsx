@@ -7,21 +7,39 @@ import { categoryToSlug } from '@/lib/format'
 import ServiceCard from './ServicesCard'
 
 const CONTENT_CATS = CATEGORIES.filter((c) => c !== 'Tous') as string[]
+const MIN_LOOP_CARDS = 8
 
 /* ── Hook auto-scroll ── */
-function useAutoScroll(speed = 0.7) {
+function useAutoScroll(speed = 0.7, loopItemCount = 0) {
   const ref = useRef<HTMLDivElement>(null)
   const paused = useRef(false)
   const frame  = useRef<number>(0)
+  const loopDistance = useRef(0)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
 
+    const measureLoop = () => {
+      const first = el.children[0] as HTMLElement | undefined
+      const next  = loopItemCount > 0
+        ? el.children[loopItemCount] as HTMLElement | undefined
+        : undefined
+
+      loopDistance.current = first && next
+        ? Math.max(0, next.offsetLeft - first.offsetLeft)
+        : 0
+    }
+
+    measureLoop()
+
     const tick = () => {
       if (!paused.current) {
         el.scrollLeft += speed
-        if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+
+        if (loopDistance.current > 0 && el.scrollLeft >= loopDistance.current) {
+          el.scrollLeft = el.scrollLeft % loopDistance.current
+        } else if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
           el.scrollLeft = 0
         }
       }
@@ -37,6 +55,7 @@ function useAutoScroll(speed = 0.7) {
     el.addEventListener('mouseleave', resume)
     el.addEventListener('touchstart', pause,  { passive: true })
     el.addEventListener('touchend',   resume)
+    window.addEventListener('resize', measureLoop)
 
     return () => {
       cancelAnimationFrame(frame.current)
@@ -44,8 +63,9 @@ function useAutoScroll(speed = 0.7) {
       el.removeEventListener('mouseleave', resume)
       el.removeEventListener('touchstart', pause)
       el.removeEventListener('touchend',   resume)
+      window.removeEventListener('resize', measureLoop)
     }
-  }, [speed])
+  }, [loopItemCount, speed])
 
   return ref
 }
@@ -53,9 +73,14 @@ function useAutoScroll(speed = 0.7) {
 /* ── Rangée par catégorie ── */
 function CategoryRow({ cat, services }: { cat: string; services: typeof SERVICES }) {
   const slug      = categoryToSlug(cat)
-  const trackRef  = useAutoScroll(0.6)
+  const trackRef  = useAutoScroll(0.6, services.length)
 
   if (services.length === 0) return null
+
+  const repeatCount = Math.max(2, Math.ceil(MIN_LOOP_CARDS / services.length))
+  const loopedServices = Array.from({ length: repeatCount }, (_, copyIndex) =>
+    services.map((service) => ({ service, copyIndex }))
+  ).flat()
 
   return (
     <div id={`section-${slug}`} className="srow">
@@ -69,7 +94,13 @@ function CategoryRow({ cat, services }: { cat: string; services: typeof SERVICES
         </div>
       </div>
       <div className="srow__track" ref={trackRef}>
-        {services.map((s) => <ServiceCard key={s.id} service={s} />)}
+        {loopedServices.map(({ service, copyIndex }) => (
+          <ServiceCard
+            key={`${service.id}-${copyIndex}`}
+            service={service}
+            hiddenFromA11y={copyIndex > 0}
+          />
+        ))}
       </div>
     </div>
   )

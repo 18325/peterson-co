@@ -62,7 +62,7 @@ export default function CartDrawer() {
                 <li key={item.id} className="cart-item">
                   {item.serviceImage && (
                     <div className="cart-item__img">
-                      <Image src={item.serviceImage} alt={item.serviceName} fill className="object-contain p-1" />
+                      <Image src={item.serviceImage} alt={item.serviceName} fill sizes="52px" className="object-contain p-1" />
                     </div>
                   )}
                   <div className="cart-item__info">

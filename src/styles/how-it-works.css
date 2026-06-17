@@ -355,3 +355,76 @@
 [data-theme="light"] .trust__card:hover {
   box-shadow: var(--neu-shadow-hover);
 }
+
+@media (max-width: 1024px) {
+  .hiw-grid {
+    gap: 26px;
+  }
+
+  .hiw-step {
+    max-width: 280px;
+    gap: 18px;
+  }
+
+  .morph-card {
+    width: 180px;
+    height: 220px;
+  }
+
+  .trust {
+    padding: 82px 0 64px;
+  }
+
+  .trust__inner {
+    padding: 0 20px;
+  }
+
+  .trust__header {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 720px) {
+  .hiw-grid {
+    gap: 22px;
+  }
+
+  .hiw-step {
+    gap: 14px;
+  }
+
+  .trust {
+    padding: 54px 0 46px;
+  }
+
+  .trust__inner {
+    padding: 0 20px;
+  }
+
+  .trust__header {
+    margin-bottom: 34px;
+  }
+
+  .trust__eyebrow {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .trust__title {
+    font-size: clamp(30px, 9vw, 42px);
+    margin-bottom: 10px;
+  }
+
+  .trust__subtitle {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .trust__stats {
+    margin-bottom: 24px;
+  }
+
+  .trust__card {
+    padding: 22px 20px;
+  }
+}

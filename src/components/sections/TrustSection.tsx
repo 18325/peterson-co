@@ -20,7 +20,7 @@ const GUARANTEES = [
   {
     num: '02',
     title: 'Paiement 100% sécurisé',
-    description: 'Wave, Orange Money, MTN MoMo — via CinetPay, agrégateur certifié. Vos données bancaires ne nous parviennent jamais.',
+    description: 'Wave, Orange Money, MTN MoMo — via Fedapay, agrégateur certifié. Vos données bancaires ne nous parviennent jamais.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>

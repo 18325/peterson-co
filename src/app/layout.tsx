@@ -10,6 +10,10 @@ import { CartProvider } from '@/context/CartContext'
 export const metadata: Metadata = {
   title: 'Peterson&Co — Abonnements Premium',
   description: 'Netflix, Spotify, Disney+ et plus à prix réduit. Livraison rapide via WhatsApp.',
+  icons: {
+    icon: '/assets/identite_visuelle/BRANDMARK/BRANDMARK.png',
+    apple: '/assets/identite_visuelle/BRANDMARK/BRANDMARK.png',
+  },
 }
 
 export default function RootLayout({
@@ -20,7 +24,7 @@ export default function RootLayout({
   // élément React valide (JSX, texte, null...)"
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <SplashScreen />
         <CartProvider>

@@ -140,7 +140,7 @@ export const SERVICES: Service[] = [
     name: 'Paramount+',
     category: 'Streaming Vidéo',
     emoji: '🎬',
-    image: '/assets/images/paramount.jpg',
+    image: '/assets/images/paramountplus.jpg',
     tagline: 'Films & séries exclusifs Paramount — VPN inclus',
     variants: [
       {
@@ -162,7 +162,7 @@ export const SERVICES: Service[] = [
     name: 'Starz',
     category: 'Streaming Vidéo',
     emoji: '⭐',
-    image: '/assets/images/starz.jpg',
+    image: '/assets/images/starz.png',
     tagline: 'Films & séries premium Starz — VPN inclus',
     variants: [
       {
@@ -206,7 +206,7 @@ export const SERVICES: Service[] = [
     name: 'DAZN',
     category: 'Streaming Vidéo',
     emoji: '⚽',
-    image: '/assets/images/dazn.jpg',
+    image: '/assets/images/dazn.png',
     tagline: 'Football, boxe & MMA en direct — sport en streaming',
     variants: [
       {
@@ -734,7 +734,7 @@ export const SERVICES: Service[] = [
     name: 'Snapchat+',
     category: 'Applications',
     emoji: '',
-    image: '/assets/images/snapchat.jpg',
+    image: '/assets/images/snapchatplus.jpg',
     tagline: 'Filtres exclusifs, stories HD & options avancées',
     variants: [
       {
@@ -754,7 +754,7 @@ export const SERVICES: Service[] = [
     name: 'Canva Pro',
     category: 'Applications',
     emoji: '',
-    image: undefined,
+    image: '/assets/images/canvapro.jpg',
     tagline: 'Design pro — templates premium & outils IA',
     variants: [
       {
@@ -776,7 +776,7 @@ export const SERVICES: Service[] = [
     name: 'Avira VPN',
     category: 'Sécurité & VPN',
     emoji: '',
-    image: '/assets/images/aviravpn.jpg',
+    image: '/assets/images/avira.jpg',
     tagline: 'Protection Avira — partagé 1 appareil',
     variants: [
       {
@@ -797,7 +797,7 @@ export const SERVICES: Service[] = [
     name: 'Astrill VPN',
     category: 'Sécurité & VPN',
     emoji: '',
-    image: '/assets/images/astrill.jpg',
+    image: '/assets/images/astrillvpn.png',
     tagline: 'VPN ultra-rapide — compte privé, contourne tous les pare-feux',
     variants: [
       {
@@ -818,7 +818,7 @@ export const SERVICES: Service[] = [
     name: 'Envato Elements',
     category: 'Applications',
     emoji: '',
-    image: '/assets/images/envato.jpg',
+    image: '/assets/images/envatoelements.png',
     tagline: 'Templates, vidéos, musiques & ressources créatives illimitées',
     variants: [
       {
@@ -838,7 +838,7 @@ export const SERVICES: Service[] = [
     name: 'Freepik',
     category: 'Applications',
     emoji: '',
-    image: '/assets/images/freepik.jpg',
+    image: '/assets/images/freepik.png',
     tagline: 'Millions de ressources graphiques premium — compte privé',
     variants: [
       {
@@ -860,7 +860,7 @@ export const SERVICES: Service[] = [
     name: 'ChatGPT Pro',
     category: 'Intelligence Artificielle',
     emoji: '',
-    image: '/assets/images/chatgpt.jpg',
+    image: '/assets/images/chatgptpro.jpg',
     tagline: 'IA dernière génération — compte privé, accès illimité',
     variants: [
       {
@@ -902,7 +902,7 @@ export const SERVICES: Service[] = [
     name: 'Gemini AI',
     category: 'Intelligence Artificielle',
     emoji: '',
-    image: '/assets/images/geminiai.jpg',
+    image: '/assets/images/gemini.jpg',
     tagline: 'IA multimodale Google — compte privé, accès illimité',
     variants: [
       {
@@ -923,7 +923,7 @@ export const SERVICES: Service[] = [
     name: 'PSN PlayStation',
     category: 'Cartes Cadeaux',
     emoji: '🎮',
-    image: '/assets/images/psn.jpg',
+    image: '/assets/images/psnplaystation.jpg',
     tagline: 'Crédit PlayStation Store — jeux, DLC & abonnements',
     variants: [
       {
@@ -947,7 +947,7 @@ export const SERVICES: Service[] = [
     name: 'Apple Gift Card FR',
     category: 'Cartes Cadeaux',
     emoji: '🍎',
-    image: '/assets/images/appleitunes.jpg',
+    image: '/assets/images/applegiftcard.jpg',
     tagline: 'Crédit Apple — App Store, iTunes, Apple TV+',
     variants: [
       {
@@ -992,7 +992,7 @@ export const SERVICES: Service[] = [
     name: 'Xbox Gift Card',
     category: 'Cartes Cadeaux',
     emoji: '🎮',
-    image: '/assets/images/xbox.jpg',
+    image: '/assets/images/xboxgamepass.png',
     tagline: 'Crédit Microsoft — Xbox Store & Microsoft Store',
     variants: [
       {
@@ -1014,7 +1014,7 @@ export const SERVICES: Service[] = [
     name: 'Roblox',
     category: 'Cartes Cadeaux',
     emoji: '🎮',
-    image: '/assets/images/roblox.jpg',
+    image: '/assets/images/roblox.png',
     tagline: 'Robux — avatars, objets exclusifs & contenus premium',
     variants: [
       {
@@ -1038,7 +1038,7 @@ export const SERVICES: Service[] = [
     name: 'Xbox Game Pass',
     category: 'Gaming',
     emoji: '🎮',
-    image: '/assets/images/xboxgamepass.jpg',
+    image: '/assets/images/xboxgamepass.png',
     tagline: 'Centaines de jeux console, PC & cloud — Ultimate',
     variants: [
       {
@@ -1059,7 +1059,7 @@ export const SERVICES: Service[] = [
     name: 'Resident Evil 2 Deluxe',
     category: 'Gaming',
     emoji: '🧟',
-    image: '/assets/images/residentevil2.jpg',
+    image: '/assets/images/residentevil2_512x512.jpg',
     tagline: 'Survival horror remake — Xbox One & Series X|S',
     variants: [
       {
@@ -1099,7 +1099,7 @@ export const SERVICES: Service[] = [
     name: 'PUBG UC',
     category: 'Gaming',
     emoji: '🪖',
-    image: '/assets/images/pubg.jpg',
+    image: '/assets/images/pubgmobile_512x512.png',
     tagline: 'Unknown Cash Global — skins, tenues & caisses PUBG',
     variants: [
       {

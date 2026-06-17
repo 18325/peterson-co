@@ -7,13 +7,21 @@ import type { Service } from '@/types'
 import { formatPrice } from '@/lib/format'
 import { useCart } from '@/context/CartContext'
 
+type ServiceCardProps = {
+  service: Service
+  hiddenFromA11y?: boolean
+}
+
 function ctaLabel(service: Service): string {
   if (Boolean(service.secondImage) || service.variants.length > 1) return 'Choix des options'
   if (service.variants[0].prices.length > 1) return "Voir l'offre"
   return 'Ajouter au panier'
 }
 
-export default function ServiceCard({ service }: { service: Service }) {
+const SERVICE_CARD_IMAGE_SIZES = '(max-width: 639px) 44vw, (max-width: 1023px) 32vw, (max-width: 1279px) 22vw, 20vw'
+const SERVICE_PACK_IMAGE_SIZES = '(max-width: 639px) 22vw, (max-width: 1023px) 16vw, (max-width: 1279px) 11vw, 10vw'
+
+export default function ServiceCard({ service, hiddenFromA11y = false }: ServiceCardProps) {
   const allPrices   = service.variants.flatMap((v) => v.prices.map((p) => p.amount))
   const lowestPrice = Math.min(...allPrices)
   const isPack      = Boolean(service.secondImage)
@@ -45,7 +53,12 @@ export default function ServiceCard({ service }: { service: Service }) {
   }
 
   return (
-    <Link href={`/services/${service.id}`} className="scard group block flex-shrink-0">
+    <Link
+      href={`/services/${service.id}`}
+      className="scard group block flex-shrink-0"
+      aria-hidden={hiddenFromA11y || undefined}
+      tabIndex={hiddenFromA11y ? -1 : undefined}
+    >
       <div className="scard__card">
 
         {/* ── Haut : logo sur fond clair ── */}
@@ -54,16 +67,19 @@ export default function ServiceCard({ service }: { service: Service }) {
             <div className="scard__pack">
               <div className="scard__pack-half">
                 <Image src={service.image!} alt={service.name} fill
+                  sizes={SERVICE_PACK_IMAGE_SIZES}
                   className="object-contain p-3 transition-transform duration-500 group-hover:scale-110" />
               </div>
               <div className="scard__pack-divider" />
               <div className="scard__pack-half">
                 <Image src={service.secondImage!} alt="" fill
+                  sizes={SERVICE_PACK_IMAGE_SIZES}
                   className="object-contain p-3 transition-transform duration-500 group-hover:scale-110" />
               </div>
             </div>
           ) : service.image ? (
             <Image src={service.image} alt={service.name} fill
+              sizes={SERVICE_CARD_IMAGE_SIZES}
               className="object-contain p-3 transition-transform duration-500 group-hover:scale-105" />
           ) : (
             <span className="scard__emoji">{service.emoji}</span>
@@ -95,6 +111,7 @@ export default function ServiceCard({ service }: { service: Service }) {
               <button
                 className={`scard__cta-inner ${added ? 'scard__cta-inner--added' : ''}`}
                 onClick={handleAddToCart}
+                tabIndex={hiddenFromA11y ? -1 : undefined}
               >
                 {added ? (
                   <>

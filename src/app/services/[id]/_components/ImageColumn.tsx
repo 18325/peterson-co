@@ -8,6 +8,9 @@ interface ImageColumnProps {
   variantLabel: string
 }
 
+const PRODUCT_IMAGE_SIZES = '(max-width: 820px) calc(100vw - 48px), 526px'
+const PRODUCT_PACK_IMAGE_SIZES = '(max-width: 820px) calc((100vw - 48px) / 2), 263px'
+
 export default function ImageColumn({ service, isPack, hasMultipleVariants, variantLabel }: ImageColumnProps) {
   return (
     <div className="pd-img-col">
@@ -22,15 +25,15 @@ export default function ImageColumn({ service, isPack, hasMultipleVariants, vari
           {isPack ? (
             <div className="pd-img-pack">
               <div className="pd-img-pack__half">
-                <Image src={service.image!} alt={service.name} fill className="object-contain p-8" />
+                <Image src={service.image!} alt={service.name} fill sizes={PRODUCT_PACK_IMAGE_SIZES} className="object-contain p-8" />
               </div>
               <div className="pd-img-pack__sep" />
               <div className="pd-img-pack__half">
-                <Image src={service.secondImage!} alt="" fill className="object-contain p-8" />
+                <Image src={service.secondImage!} alt="" fill sizes={PRODUCT_PACK_IMAGE_SIZES} className="object-contain p-8" />
               </div>
             </div>
           ) : service.image ? (
-            <Image src={service.image} alt={service.name} fill className="object-contain p-10" />
+            <Image src={service.image} alt={service.name} fill sizes={PRODUCT_IMAGE_SIZES} className="object-contain p-10" />
           ) : (
             <span className="text-8xl">{service.emoji}</span>
           )}

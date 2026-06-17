@@ -1,16 +1,24 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { WHATSAPP_NUMBER } from '@/constants/config'
+import { categoryToSlug } from '@/lib/format'
+
+const CATEGORIES = [
+  'Streaming Vidéo',
+  'Pack Streaming',
+  'Musique',
+  'Sécurité & VPN',
+  'Applications',
+  'Intelligence Artificielle',
+  'Cartes Cadeaux',
+  'Gaming',
+]
 
 const LINKS = {
-  Services: [
-    { label: 'Netflix',          href: '/services/netflix' },
-    { label: 'Spotify',          href: '/services/spotify' },
-    { label: 'Disney+',          href: '/services/disney'  },
-    { label: 'ChatGPT Plus',     href: '/services/chatgpt' },
-    { label: 'NordVPN',          href: '/services/nordvpn' },
-    { label: 'Canva Pro',        href: '/services/canva'   },
-  ],
+  Catégories: CATEGORIES.map((category) => ({
+    label: category,
+    href: `/services/category/${categoryToSlug(category)}`,
+  })),
   Support: [
     { label: 'Comment ça marche', href: '/#comment'  },
     { label: 'FAQ',               href: '/#contact'  },
@@ -63,7 +71,7 @@ export default function Footer() {
             />
             <p className="footer__tagline">Streamer en toute sécurité</p>
             <p className="footer__desc">
-              Accès à vos plateformes préférées à prix réduit — Netflix, Spotify, Disney+, IA et plus. Livraison garantie en moins de 30 min sur WhatsApp.
+              Streaming, musique, VPN, IA, applications et cartes cadeaux à prix réduit. Livraison garantie en moins de 30 min sur WhatsApp.
             </p>
             <a
               href={`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`}

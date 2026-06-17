@@ -15,7 +15,7 @@ export default function StickyBar({ service, amount, whatsappUrl }: StickyBarPro
         <div className="pd-sticky__left">
           {service.image && (
             <div className="pd-sticky__thumb">
-              <Image src={service.image} alt={service.name} fill className="object-contain p-1" />
+              <Image src={service.image} alt={service.name} fill sizes="44px" className="object-contain p-1" />
             </div>
           )}
           <div>
