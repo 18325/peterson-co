@@ -40,39 +40,21 @@ export default function Hero() {
       <div className="hero-screen-stage">
         <div className="hero-screen-cross">
           <div className="hero-screen hero-screen--primary hero-screen--video">
-            <video
-              className="hero-screen__video"
-              src="/assets/videos/video1.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-hidden="true"
-            />
+            <video className="hero-screen__video" autoPlay muted loop playsInline preload="none" aria-hidden="true">
+              <source src="/assets/videos/video1.mp4" type="video/mp4" />
+            </video>
           </div>
 
           <div className="hero-screen hero-screen--side hero-screen--left hero-screen--video">
-            <video
-              className="hero-screen__video"
-              src="/assets/videos/video2.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-hidden="true"
-            />
+            <video className="hero-screen__video" autoPlay muted loop playsInline preload="none" aria-hidden="true">
+              <source src="/assets/videos/video2.mp4" type="video/mp4" />
+            </video>
           </div>
 
           <div className="hero-screen hero-screen--side hero-screen--right hero-screen--video">
-            <video
-              className="hero-screen__video"
-              src="/assets/videos/video3.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-hidden="true"
-            />
+            <video className="hero-screen__video" autoPlay muted loop playsInline preload="none" aria-hidden="true">
+              <source src="/assets/videos/video3.mp4" type="video/mp4" />
+            </video>
           </div>
 
           <div className="hero-screen hero-screen--logos" style={{ '--logo-count': HERO_LOGOS.length } as React.CSSProperties}>

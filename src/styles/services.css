@@ -42,6 +42,11 @@
   .sgrid__search-wrap {
     padding: 0 18px 18px;
   }
+
+  .srow__track {
+    padding: 4px 18px 10px;
+    scroll-padding-inline: 18px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -442,8 +447,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 16px;
+  max-width: none;
+  margin: 0 0 16px;
   padding: 0 24px;
   box-sizing: border-box;
 }
@@ -483,9 +488,9 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 4px max(24px, calc((100vw - 1200px) / 2 + 24px)) 12px;
+  padding: 4px 24px 12px;
   margin: 0;
-  scroll-padding-inline: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  scroll-padding-inline: 24px;
 }
 
 .srow__track::-webkit-scrollbar { display: none; }
