@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Email, phone and amount are required' }, { status: 400 });
     }
 
-    // Validate phone is a proper international number before proceeding
     const normalisedPhone = normalisePhone(phone);
     if (!normalisedPhone) {
       return NextResponse.json(
@@ -23,16 +22,13 @@ export async function POST(req: NextRequest) {
 
     const localId = crypto.randomUUID();
 
-    // 1. Create a pending record in SQLite
-    const stmt = db.prepare(`
-      INSERT INTO transactions (id, email, phone, amount, description, status)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `);
-    stmt.run(localId, email, phone, amount, description, 'pending');
+    await db.execute({
+      sql: 'INSERT INTO transactions (id, email, phone, amount, description, status) VALUES (?, ?, ?, ?, ?, ?)',
+      args: [localId, email, phone, amount, description, 'pending'],
+    });
 
-    // 2. Create transaction in FedaPay
     const callbackUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/pay/callback`;
-    
+
     const transaction = await fedapay.createTransaction({
       amount,
       description: description || 'Payment',
@@ -43,19 +39,19 @@ export async function POST(req: NextRequest) {
         email: email,
         phone_number: {
           number: phone,
-          country: 'bj', // User mentioned local money, usually Benin/Togo
+          country: 'bj',
         },
       },
     });
 
-    // 3. Update record with FedaPay ID
-    const updateStmt = db.prepare('UPDATE transactions SET fedapay_id = ? WHERE id = ?');
-    updateStmt.run(transaction.id, localId);
+    await db.execute({
+      sql: 'UPDATE transactions SET fedapay_id = ? WHERE id = ?',
+      args: [transaction.id, localId],
+    });
 
-    // 4. Return payment link
-    return NextResponse.json({ 
-      url: transaction.payment_url, 
-      transactionId: transaction.id 
+    return NextResponse.json({
+      url: transaction.payment_url,
+      transactionId: transaction.id,
     });
   } catch (error: any) {
     console.error('Payment creation error:', error);

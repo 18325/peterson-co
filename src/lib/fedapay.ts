@@ -43,7 +43,8 @@ export const fedapay = {
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to create transaction');
+      console.error('FedaPay API error:', response.status, JSON.stringify(error, null, 2));
+      throw new Error(error.message || error.error || `FedaPay error ${response.status}`);
     }
 
     const res = await response.json();

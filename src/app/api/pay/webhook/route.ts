@@ -14,17 +14,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No transaction ID found' }, { status: 400 });
     }
 
-    //Fetch the status from the source API to verify the webhook data
     const transaction = await fedapay.getTransactionStatus(parseInt(fedapayId));
 
-    // Check local DB
-    const row = db.prepare('SELECT status, phone, description FROM transactions WHERE fedapay_id = ?').get(fedapayId) as any;
+    const result = await db.execute({
+      sql: 'SELECT status, phone, description FROM transactions WHERE fedapay_id = ?',
+      args: [fedapayId],
+    });
+    const row = result.rows[0] as any;
 
     if (transaction.status === 'approved' && row?.status !== 'approved') {
-      db.prepare('UPDATE transactions SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE fedapay_id = ?')
-        .run('approved', fedapayId);
+      await db.execute({
+        sql: 'UPDATE transactions SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE fedapay_id = ?',
+        args: ['approved', fedapayId],
+      });
 
-      // Trigger WhatsApp notification to buyer + admin
       if (row?.phone && row?.description) {
         await triggerWhatsAppNotification({
           phone: row.phone,
@@ -35,8 +38,10 @@ export async function POST(req: NextRequest) {
         console.warn(`[Webhook] Missing phone or description for FedaPay #${fedapayId}, skipping WhatsApp.`);
       }
     } else if (transaction.status !== 'approved' && row) {
-       db.prepare('UPDATE transactions SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE fedapay_id = ?')
-        .run(transaction.status, fedapayId);
+      await db.execute({
+        sql: 'UPDATE transactions SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE fedapay_id = ?',
+        args: [transaction.status, fedapayId],
+      });
     }
 
     return NextResponse.json({ received: true });

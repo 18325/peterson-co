@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 
 interface PaymentModalProps {
   isOpen: boolean
@@ -168,8 +167,9 @@ export default function PaymentModal({ isOpen, onClose, onConfirm, amount, servi
             </button>
           </form>
           
-          <div className="mt-6 flex items-center justify-center gap-2 grayscale opacity-50">
-             <Image src="/assets/images/fedapay-badge.png" alt="FedaPay" width={80} height={20} className="object-contain" />
+          <div className="mt-6 flex items-center justify-center gap-1 opacity-40 text-xs text-gray-500">
+            <span>Paiement sécurisé par</span>
+            <span className="font-semibold tracking-tight">FedaPay</span>
           </div>
         </div>
       </div>
