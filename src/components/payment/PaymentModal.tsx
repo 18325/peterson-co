@@ -130,7 +130,7 @@ export default function PaymentModal({ isOpen, onClose, onConfirm, amount, servi
                 <input
                   required
                   type="tel"
-                  placeholder="97 00 00 00"
+                  placeholder="01 00 00 00 00"
                   className={`w-2/3 px-5 py-4 bg-gray-50 border rounded-2xl focus:ring-2 outline-none transition-all ${
                     phoneError
                       ? 'border-red-400 focus:ring-red-300'

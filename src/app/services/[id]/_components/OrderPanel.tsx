@@ -178,7 +178,7 @@ export default function OrderPanel({
             <div className="pd-payments__header">
               <div>
                 <p className="pd-payments__title">Paiement 100 % sécurisé</p>
-                <p className="pd-payments__label">Choisissez la méthode à transmettre ensuite au backend.</p>
+                <p className="pd-payments__label">Sélectionnez votre mode de paiement préféré.</p>
               </div>
             </div>
             <div className="pd-payments__methods">
@@ -210,11 +210,11 @@ export default function OrderPanel({
             className="pd-cta-main pd-cta-main--accent w-full"
           >
             {isOnlinePayment ? (
-              <>🚀 Valider le paiement</>
+              <>Valider le paiement</>
             ) : (
               <>
                 <WhatsAppIcon size={20} />
-                Valider
+                Commander via WhatsApp
               </>
             )}
           </button>

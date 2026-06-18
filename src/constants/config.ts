@@ -1,6 +1,6 @@
-// Numéro WhatsApp du vendeur — à remplacer par le vrai numéro
+// Numéro WhatsApp du vendeur
 // Format international sans + ni espaces : ex. 22500000000
-export const WHATSAPP_NUMBER = '22900000000'
+export const WHATSAPP_NUMBER = '2290153856346'
 
 // Logo strip affiché dans le Hero — order matters for visual balance
 export const HERO_LOGOS = [

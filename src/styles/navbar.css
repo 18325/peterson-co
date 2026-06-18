@@ -138,6 +138,30 @@
   .navbar__cta { padding: 8px; border-radius: 8px; }
 }
 
+/* Très petits écrans (ex. Huawei ≤ 380px) — évite que le burger déborde */
+@media (max-width: 380px) {
+  .navbar__inner {
+    padding: 0 12px;
+    gap: 6px;
+  }
+  .navbar__logo-img {
+    height: 28px;
+  }
+  .navbar__right {
+    gap: 6px;
+  }
+  .navbar__cart-btn,
+  .navbar__theme-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .navbar__burger {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+  }
+}
+
 .navbar__theme-btn {
   width: 36px; height: 36px;
   border-radius: 8px;

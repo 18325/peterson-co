@@ -72,10 +72,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
 
           {/* Grille complète */}
-          <div
-            className="grid gap-5"
-            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
-          >
+          <div className="cat-grid">
             {services.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))}

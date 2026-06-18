@@ -30,7 +30,7 @@ export default function RootLayout({
         <CartProvider>
           <ThemeProvider
             attribute="data-theme"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem={false}
           >
             {children}

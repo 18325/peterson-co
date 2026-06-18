@@ -127,6 +127,24 @@
   }
 }
 
+/* Très petits écrans (ex. Huawei ≤ 390px) — badges trust bar trop serrés */
+@media (max-width: 390px) {
+  .pd-trust-bar__inner {
+    padding: 10px 10px;
+    gap: 5px;
+  }
+  .pd-trust-bar__item {
+    padding: 10px 6px;
+  }
+  .pd-trust-bar__title {
+    font-size: 11px;
+  }
+  .pd-trust-bar__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 /* ── Colonne image ── */
 .pd-img-col { display: flex; flex-direction: column; gap: 16px; }
 
